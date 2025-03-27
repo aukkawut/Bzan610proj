@@ -1,0 +1,109 @@
+\documentclass[10pt]{beamer}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{amsfonts,amsmath,amssymb,amsthm}
+\usetikzlibrary{shapes.geometric, arrows}
+
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=red!30]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{booktabs}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+\title{Information Structure and Influence Maximization Case Studies}
+%\subtitle{Case study: Information Operation}
+% \date{\today}
+\date{}
+\author{Aukkawut Ammartayakun}
+\institute{University of Tennessee, Knoxville}
+% \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+
+\definecolor{utorange}{RGB}{255, 130, 0}
+\setbeamercolor{frametitle}{bg=utorange, fg=white}
+\setbeamercolor{background canvas}{bg=white}
+\begin{document}
+
+\maketitle
+\begin{frame}{Table of contents}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents%[hideallsubsections]
+\end{frame}
+\section{Social Network Influence Maximization}
+\begin{frame}{What's Wrong With Previous Works?}
+    \begin{itemize}
+        \item Information cascade is modeled as change in behavior. Not how the information is propagated.
+        \item Are one step: once you adopted the behavior, you are done.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Information Cascade in Graph}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{graph1.pdf}
+    \caption{\textbf{Information Cascade on Directional Social Network}. Individual node has their own belief level $\alpha \in [-1,1]$.}
+    \label{fig:1}
+\end{figure}
+\end{frame}
+\section{Spatial-Temporal Influence Maximization in Swarm Robotics}
+\begin{frame}{Pheromone-Based Robot Foraging}
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{DetractorWall.png}
+    \caption{\textbf{Effect of Malicious Actor on the Foraging.} Green is food, blue circle is nest. Blue trails is to-food pheromone and red is adversarial to-food pheromone.}
+    \label{fig:2}
+\end{figure}
+\end{frame}
+\begin{frame}{Pheromone-Based Robot Foraging: Cautionary Pheromone}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{counter_timeline.png}
+    \caption{\textbf{Time Evolution Of Pheromone Concentration Given Cautionary Pheromone} (Aswale et al., AAMAS 2022)}
+    \label{fig:2}
+\end{figure}
+\end{frame}
+\begin{frame}{Pheromone and Robot Dynamics}
+\begin{itemize}
+    \item Suppose $i=1,\dots,N$ are robots that locate at $x_i(t)$. At position $x(t)$, there are 2 pheromones concentration $P_\text{food},P_{\text{home}}$
+    \[
+    \dd x_i(t) = \overbrace{v_i(t) \dd t}^\text{correlated term} + \underbrace{\sigma \dd W_i(t)}_{\text{random walk}}
+    \]
+    \[
+    \dfrac{\partial}{\partial t} P_\ell(x,t) = \overbrace{D_\ell \nabla^2P_\ell(x,t)}^{\text{diffusion}} - \underbrace{\lambda_\ell P_\ell(x,t)}_{\text{evaporation}} +\overbrace{S_\ell(x,t)}^{\text{deposition}}, \quad \ell\in\{\text{food},\text{home}\}
+    \] (Ryan, Journal of Mathematical Biology, 2016)
+    \item Note that pheromone dynamics is SPDE as \[S_\ell(x,t) = \sum_{i=1}^N s_i(t)\delta(x-X_i(t))\] for random position $X_i(t)$ described by dynamics $\dd x_i(t)$
+    \item Robot has prior belief in trustworthiness of the observation.
+\end{itemize}
+\end{frame}
+\section{Methodology}
+\begin{frame}{Method}
+    \begin{itemize}
+        \item Monte Carlo simulation of different settings as initial dynamics.
+        \begin{itemize}
+            \item In discrete case, we can look at the Erd\H{o}s-R\'enyi social network with different families of distributions of propagation: uniform, heavy-tailed, Gaussian, etc. Or using the synchronization/quorum sensing as the way to model the dynamics.
+            \item Continuous case, we have some prior data and simulator from previous work.
+        \end{itemize}
+        \item Theoretical exploration
+        \begin{itemize}
+            \item Both are evolution of distribution which is the solution of SDE (and also PDE). So, Kolmogorov forward equation or Fokker-Planck equation might needed to be considered.
+        \end{itemize}
+        \item Information Structure
+        \begin{itemize}
+            \item How would knowing more information (say if robot can communicate, or we know which side that person is on) changes the strategy?
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\end{document}
+            
