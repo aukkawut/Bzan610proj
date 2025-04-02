@@ -104,6 +104,58 @@
         \end{itemize}
     \end{itemize}
 \end{frame}
-
+\section{Theoretical Results}
+\begin{frame}{Dynamics as Gradient Flow}
+    \begin{itemize}
+        \item One can say that the system
+        \begin{align}
+    \dfrac{\partial}{\partial t} P_\ell(x,t) &= D_\ell \nabla^2P_\ell(x,t) -\lambda_\ell P_\ell(x,t) +S_\ell(x,t)\\
+    \dd x_t &= \mu(X_t,t)\dd t + \sigma(X_t,t)\dd W_t\\
+    X_t &\sim F(t,\theta) \text{ unknown}
+    \end{align}
+    can be written as
+    \begin{equation}
+        \partial_t\eta = \nabla^2\eta + \nabla \cdot \left(\eta (\nabla V+ \nabla W[\mu])\right)
+    \end{equation}
+    for some measure $\mu$ and potential function $V$ (as gradient flow).
+    \end{itemize}
+\end{frame}
+\begin{frame}{Information Structure}
+    \metroset{block=fill}
+    \begin{block}{Theorem}
+    Pheromone dynamics follows the Blackwell's information structure. 
+    \end{block}
+    \begin{proof}
+        \begin{itemize}
+            \item Intuitively, one can see that the dynamic system we discussed is indeed diffusion process with additional term governing the input and output of the system. In a way, we have
+            \[
+            \dfrac{\partial}{\partial t} P_\ell(x,t) = D_\ell \nabla^2P_\ell(x,t) + f(P_\ell(x,t),x,t)
+             \]
+            Then, we need to show that there exists the relationship
+            \[
+            \forall \mu \in \Omega_{\Xi}, \forall\hat{\xi},\tilde{\xi}\in \Xi, \tilde{\xi} = \hat{\xi}D \implies \mu(\hat{\xi}) \leq \mu(\tilde{\xi})
+            \]
+            for diffusion process $D$.
+        \end{itemize}
+    \end{proof}
+\end{frame}
+\begin{frame}{Information Structure (Continue)}
+    \metroset{block=fill}
+    \begin{proof}
+        \begin{itemize}
+        \item Note that our pheromone dynamics is (stochastic) parabolic equation satisfying the condition $B^2 + AC = 0$.
+        \item It is also in the form of
+        \begin{equation}
+        \left(\dfrac{\partial}{\partial t}-\mathcal{L}\right) U + qU = F, \quad \left.U\right|_{t=0} = G    
+        \end{equation}
+        \item Here, we can think of our Laplacian as elliptic operator and our forcing term as random deposition with unknown potential $U$.
+        \item There are two dynamics:
+        \[
+        P_o = P_T + P_A
+        \]
+        We know $P_o$ and want to recover $P_T$ but we don't know $P_A$
+    \end{itemize}
+    \end{proof}
+    \end{frame}
 \end{document}
             
