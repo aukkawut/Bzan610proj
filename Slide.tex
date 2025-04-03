@@ -15,7 +15,6 @@
 \usepackage{appendixnumberbeamer}
 
 \usepackage{booktabs}
-\usepackage[scale=2]{ccicons}
 
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
@@ -156,6 +155,36 @@
         We know $P_o$ and want to recover $P_T$ but we don't know $P_A$
     \end{itemize}
     \end{proof}
+    \end{frame}
+    \begin{frame}{Another direction}
+        \begin{itemize}
+            \item NTS that 1 and 2 are equivalent to
+            \begin{align*}
+            \dd u(t) + [\gamma Au(t)+B(u(t),u(t)) &+F(u(t))]\dd t = G(u(t-))\dd W \\
+            &\phantom{=}+ \int_{E_0}K(u(t-),\xi)
+            \dd \hat{\pi}(t,\xi)\\
+            &\phantom{=}+ \int_{E\setminus E_0}\mathcal{K}(u(t-),\xi)\dd\pi(t,\xi)\\
+            &u(0) = u_0
+            \end{align*}
+            \item $u\in H$ separable (real) Hilbert, $A$ linear operator on $H$ (not necessary bounded), $B$ bilinear form, and $F$ monotone operator over reflexive Banach $X$ densely and continuously embedded in $H$. (Nguyen et al., 2021)
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{Another Direction (continue)}
+    \begin{itemize}
+    \item Notice that our formulation follows the SPDE with Levy noise. More specifically, it is parabolic SPDE with Levy noise.
+    \begin{itemize}
+        \item To see this, notice that
+        \[
+        S_\ell(x,t) = \sum_{k=1}^n s\delta(x-X_i(t)), \dd X_i = \mu \dd t + \sigma \dd W_t 
+        \]
+        Essentially we are asking if our Ornstein-Uhlenbeck process hit the specific $x$ or not. At the position on some path, if there is ant there, the pheromone level jump (from deposition) rather than decay or diffusion. Hence, acts like Levy noise.
+        \item Moreover,
+        \[
+        \dfrac{\partial}{\partial t}P(x,t) = D\nabla^2P(x,t) - \gamma P(x,t) + S(x,t)
+        \]
+        is linear, is regularized (in a sense). That is, say if we have $\partial_tP \in L^2$ then, $D\nabla^2P \in W^1$ Sobolev (think of it as linear space of function with $L^p$ norm), more smooth or something. Hence, parabolic (in PDE sense)
+    \end{itemize}
+    \end{itemize}
     \end{frame}
 \end{document}
             
