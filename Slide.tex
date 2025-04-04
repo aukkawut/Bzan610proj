@@ -186,5 +186,43 @@
     \end{itemize}
     \end{itemize}
     \end{frame}
+	\begin{frame}{Adversarials}
+		\begin{itemize}
+			\item Suppose the dynamics $X_i(t)$ is now defined as
+				\[
+				\dd X_i = \begin{cases}
+				\mu(\nabla P) \dd t + \sigma \dd W_t & \text{ w.p. } p\\
+				\sigma \dd W_t & \text{ w.p. } 1-p
+				\end{cases}
+				\]
+			\item Now, we have hidden Bernoulli process.
+      \item Goal: Represent $p$ with some dynamics
+      \item Moreover, we can argue that there exists $\Lambda = \{\lambda_1,\dots,\lambda_m\}\subseteq \{1,\dots,N\}$ such that for any robot in $\Lambda$, the dynamics for random walk is diffrent compared to the rest of cohort (i.e, adversaries).
+
+		\end{itemize}
+	\end{frame}
+  \begin{frame}{Model}
+    \begin{itemize}
+      \item WLOG, there are $N$ robots, $1,\dots, n$ are under normal operation, $n+1, \dots, N$ are faulty (or adversaries).
+      \item System follows this dynamics
+        \begin{align*}
+          \dfrac{\partial}{\partial} P(x,t) &= D\nabla^2 P(x,t) - \gamma P(x,t) + S_n(x,t)+ S_f(x,t)\\
+          S_n(x,t) &= \sum_{i=1}^{n}s_n\delta(x-X_i(t))\\
+          \dd X_i(t) &= Z_i(t)\left[\mu(\nabla P(X_i,t))\dd t + \sigma \dd W_t\right] + (1-Z_i(t))\sigma\dd W_t\\
+          Z_i(t) &\sim \operatorname{Ber}(p(t))\\
+          S_f(x,t) &= \sum_{k=n+1}^N s_f \delta(x-Y_k(t))\\
+          \dd Y_k(t) &= \varphi(\nabla P(Y_k(t),t),t)\dd t + \eta \dd W_t
+        \end{align*}
+    \end{itemize}
+  \end{frame}
+  \begin{frame}{Model (continue)}
+  \begin{itemize}
+  \item What we don't know
+        \begin{itemize}
+          \item $n$, how many adversaries.
+          \item $Y_k(t)$ dynamics of adversaries.
+        \end{itemize}
+  \end{itemize}
+  \end{frame}
 \end{document}
             
