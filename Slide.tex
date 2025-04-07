@@ -206,7 +206,7 @@
       \item WLOG, there are $N$ robots, $1,\dots, n$ are under normal operation, $n+1, \dots, N$ are faulty (or adversaries).
       \item System follows this dynamics
         \begin{align*}
-          \dfrac{\partial}{\partial} P(x,t) &= D\nabla^2 P(x,t) - \gamma P(x,t) + S_n(x,t)+ S_f(x,t)\\
+          \dfrac{\partial}{\partial t} P(x,t) &= D\nabla^2 P(x,t) - \gamma P(x,t) + S_n(x,t)+ S_f(x,t)\\
           S_n(x,t) &= \sum_{i=1}^{n}s_n\delta(x-X_i(t))\\
           \dd X_i(t) &= Z_i(t)\left[\mu(\nabla P(X_i,t))\dd t + \sigma \dd W_t\right] + (1-Z_i(t))\sigma\dd W_t\\
           Z_i(t) &\sim \operatorname{Ber}(p(t))\\
