@@ -206,9 +206,9 @@
       \item WLOG, there are $N$ robots, $1,\dots, n$ are under normal operation, $n+1, \dots, N$ are faulty (or adversaries).
       \item System follows this dynamics
         \begin{align*}
-          \dfrac{\partial}{\partial} P(x,t) &= D\nabla^2 P(x,t) - \gamma P(x,t) + S_n(x,t)+ S_f(x,t)\\
+          \dfrac{\partial}{\partial t} P(x,t) &= D\nabla^2 P(x,t) - \gamma P(x,t) + S_n(x,t)+ S_f(x,t)\\
           S_n(x,t) &= \sum_{i=1}^{n}s_n\delta(x-X_i(t))\\
-          \dd X_i(t) &= Z_i(t)\left[\mu(\nabla P(X_i,t))\dd t + \sigma \dd W_t\right] + (1-Z_i(t))\sigma\dd W_t\\
+          \dd X_i(t) &= Z_i(t)\left[\mu(\nabla P(X_i(t),t))\dd t + \sigma \dd W_t\right] + (1-Z_i(t))\sigma\dd W_t\\
           Z_i(t) &\sim \operatorname{Ber}(p(t))\\
           S_f(x,t) &= \sum_{k=n+1}^N s_f \delta(x-Y_k(t))\\
           \dd Y_k(t) &= \varphi(\nabla P(Y_k(t),t),t)\dd t + \eta \dd W_t
@@ -222,7 +222,17 @@
           \item $n$, how many adversaries.
           \item $Y_k(t)$ dynamics of adversaries.
         \end{itemize}
+  \item What we should assume
+    \begin{itemize}
+      \item Lipschitz (for existence of the solution of $P$)
+      \item Covariance structure of $Z_i(t_1)$ and $Z_i(t_2)$ for $t_1\neq t_2$ (for Markovian)
+    \end{itemize}
   \end{itemize}
+  \end{frame}
+  \begin{frame}{Cumulative Food}
+    \begin{itemize}
+      \item Now, 
+    \end{itemize}
   \end{frame}
 \end{document}
             
