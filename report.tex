@@ -36,55 +36,18 @@ In the foraging task, the goal for agents are to reach the objective and to accu
 
 \section{Introduction}\label{intro}
 
-
+\section{Literature Review}
 \section{Methodology}
-\subsection{Autoencoder As a Pair of Parameterized Functions}
-\begin{definition}[Autoencoder \citep{ae}]
-Let say that we have a dataset which is $\mathbb{R}^{n} \supseteq \mathcal{D} = \left\{\mathbf{x}_1,\dots,\mathbf{x}_m\right\}$. Define the parameterized function that captures the low-dimensional representation $\phi_{\boldsymbol{\theta}_1}^{e}:\mathbb{R}^n\rightarrow \mathbb{R}^{p}$ where $p \neq n$ and $\boldsymbol{\theta}_1$ as parameters. The autoencoder with parameter $\boldsymbol{\Theta} = \begin{bmatrix}
-    \boldsymbol{\theta}_1 & \boldsymbol{\theta}_2
-\end{bmatrix}^\top$
-is the combination (or composition) of the encoding parameterized function $\phi_{\boldsymbol{\theta}_1}^e$ and the decoding parameterized function $\phi_{\boldsymbol{\theta}_2}^{d}: \mathbb{R}^p\rightarrow\mathbb{R}^n$ specifically,
-$$
-\text{AE}(\mathbf{x}) = \phi_{\boldsymbol{\theta}_2}^d \circ \phi_{\boldsymbol{\theta}_1}^e \; (\mathbf{x})$$
-\end{definition}
-
-\subsection{Linear Models As Parameterized Functions}
-\subsubsection{PCA and Least Square MMLR as an Autoencoder}
-
-The goal of autoencoder is to perform dimensional reduction (from encoder) and the reconstruction of the information (from decoder). The basic linear model that can perform dimensional reduction would be the principal component analysis (PCA), and the basic linear model that can reconstruct the information would be the multiple multivariate linear regression (MMLR) which can be obtained using the least square method.
-\begin{theorem}\label{thm:1}
-Autoencoder, where the encoder is PCA and the decoder is least square MMLR, results in the reconstruction in the space constructed from the span of the principal component score.
-\end{theorem}
-\begin{proof}
-    Let $\mathbf{X}\in \mathbb{R}^{n\times p}$ be a centered data matrix. $k$-rank approximation of $\mathbf{X}$ through PCA is \begin{align*}
-        \tilde{\mathbf{X}} &= \mathbf{U}_k \mathbf{D}_k \mathbf{V}^\top_k
-    \end{align*}
-Least square estimate for $\mathbf{B}$ of the linear regression model 
-$\mathbf{X} = \tilde{\mathbf{X}}\mathbf{B}$
-is $$\mathbf{B} = \left(\tilde{\mathbf{X}}^\top\tilde{\mathbf{X}}\right)^{-1}\tilde{\mathbf{X}}^\top \mathbf{X}$$ 
-Substitute in the $\mathbf{U}_k \mathbf{D}_k \mathbf{V}^\top_k$ to get
-\begin{align*}
-    \mathbf{B} &=\left((\mathbf{U}_k \mathbf{D}_k \mathbf{V}^\top_k)^\top \mathbf{U}_k \mathbf{D}_k \mathbf{V}^\top_k\right)^{-1} (\mathbf{U}_k \mathbf{D}_k \mathbf{V}^\top_k)^\top \mathbf{X}\\
-    &= \left(\mathbf{V}_k \mathbf{D}_k \mathbf{U}^\top_k\mathbf{U}_k \mathbf{D}_k \mathbf{V}^\top_k\right)^{-1}\mathbf{V}_k \mathbf{D}_k \mathbf{U}^\top_k\mathbf{X}\\
-    &= \left(\mathbf{V}_k \mathbf{D}_k\mathbf{D}_k \mathbf{V}^\top_k\right)^{-1}\mathbf{V}_k \mathbf{D}_k \mathbf{U}^\top_k\mathbf{X}\\
-    &= \left(\mathbf{V}_k \mathbf{D}^2_k \mathbf{V}^\top_k\right)^{-1}\mathbf{V}_k \mathbf{D}_k \mathbf{U}^\top_k\mathbf{X}\\
-    &= \left(\mathbf{V}_k \mathbf{D}^{-2}_k \mathbf{V}^\top_k\right)\mathbf{V}_k \mathbf{D}_k \mathbf{U}^\top_k\mathbf{X}\\
-    &= \mathbf{V}_k \mathbf{D}_k^{-1}\mathbf{U}^\top_k \mathbf{X}
+\section{Results}
+\subsection{Model}
+Suppose there are $N$ robots with compliance group $R_c = \{1,2,\dots,n_c\}$ and defiance group $R_d = \{n_{c+1},\dots,N\}. Then, the dynamics is denoted as followed
+\\begin{align*}
+  \frac{\partial}{\partial t} P_{\ell}(x,t) &= D_\ell \nabla^2 P_\ell (x,t) - \gamma_\ell P_\ell(x,t) + S_{\ell}(x,t)\\
+  S_\ell(x,t) &= \sum_{k\in R_c} s_\ell\delta(x-X_t^{(k)}) + \sum_{m\in R_d}(x-Y_t^{(m)})
+  dX_t^{(k)} &= Z_t^{(k)}\left[\mu(P_\ell(X_t^{(k)},t),t)dt + \sigma dW_t\right] + (1-Z_t^{(k)})\left[\sigma dW_t\right]\\
+  Z_t^{(k)} &\sim \operatorname{Bernoulli}(p^{(k)}_t)\\
+  Y_t^{(k)} &\sim \operatorname{Unknown, adversarial}
 \end{align*}
-The reconstruction then be 
-\begin{align*}
-    \tilde{\mathbf{X}}\mathbf{B} &= \mathbf{U}_k \mathbf{D}_k \mathbf{V}^\top_k\mathbf{V}_k\mathbf{D}_k^{-1}\mathbf{U}^\top_k \mathbf{X}\\ 
-    &= \mathbf{U}_k\mathbf{U}_k^\top \mathbf{X}
-\end{align*}
-Since $\mathbf{U}_k\mathbf{U}_k^\top$ is a projection matrix, the reconstruction is a projection of the original data into the space spanned by the PC score.
-\end{proof}
-
-The result here shows that while the reconstructed image here would lie in the original space, it is only possible to get the image that is a span of the subspace defined by the $k$ basis from the PC score instead of the $p$ basis on which the original space is defined. Although the loss of information from this composition mapping is to be expected, the fact that the output is only restricted within this space is problematic in the generative task.
-
-
-
-
-
 \end{document}
 
 
