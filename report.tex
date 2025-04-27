@@ -24,10 +24,9 @@ Aukkawut Ammartayakun   \thanks{Bredesen Center for Interdisciplinary Research a
 \textbf{Abstract}
 \end{center}
 
-Most of the time, neural networks are slow to train on the CPU. In this work, the concept of the linear model, which is faster to train on the CPU, as a substitution of the neural network for the case of an autoencoder and a variational autoencoder will be explored. Specifically on why one should and should not use the linear model as a generative model. Autoencoder can be defined as the composition between two mappings: encoding, which projects the high-dimensional data into the lower-dimensional manifold, and the decoder, which maps the point in the lower-dimensional manifold to the data. Basic models like principal component analysis (PCA) and least square multiple multivariate linear regression (MMLR) are used to understand the behavior and mathematically show that the reconstruction space is a span of the principal component score, which shows the tradeoff that while it is optimal in the least square sense, it is restrictive in the expression. The extension for the least square estimation to Bayesian methods like variational inference (VI) and Markov chain Monte Carlo (MCMC) method are used to estimate the parameter, hoping to widen the output space. The inference results show that the linear model is comparable in generating the image compared to the conditioned fully-connected variational autoencoder (CVAE).
-
+In the foraging task, the goal for agents are to reach the objective and to accumulate said objective by bringing those back to the start. However, as shown by Aswale et al. (2022), if the information is communicate through the pheromone, then there exists the adversarial strategy that can sabotage the task. In this work, the theoretical framework for the adversarial foraging task will be presented along with the insights from the information theory perspective. System of stochastic partial differential equations is used to formulate the framework along with mean-field theory. 
 \noindent
-\textbf{Keywords}: Variational Autoencoder, Linear Regression, Principal Component Analysis, Bayesian Regression, Generative Model
+\textbf{Keywords}: Byzantine Model, Foraging Task, Swarm Robotics, Adversarial Behavior, Pheromone-based Robots
 
 \thispagestyle{empty}
 
@@ -37,12 +36,7 @@ Most of the time, neural networks are slow to train on the CPU. In this work, th
 
 \section{Introduction}\label{intro}
 
-Generative models in machine learning are dominated by non-linear architectures, particularly those based in deep learning \citep{cvae, gan, score, denoise}. However, these models often come with the drawback of computational intensity, especially when operated on CPUs. This study proposes an exploration into the utility of linear models within the framework of autoencoders, a class of generative models. Linear models are known for their computational simplicity and speed, but their capacity in generative tasks is not common \citep{elbo}.
 
-Our investigation seeks to address a fundamental question: Can linear models provide a close approximation to the performance of deep learning models in generative tasks? To answer this, we implement a autoencoder where both the encoder and decoder are linear in nature. We utilize linear methods, such as Principal Component Analysis (PCA) and multiple multivariate linear regression (MMLR), to construct and analyze these linear autoencoders. The empirical focus is initially placed on the MNIST dataset \citep{mnist}, to assess the viability and performance of our linear approach.
-
-The subsequent sections of this paper will delve into the technical aspects of our approach, present initial empirical results, discuss the mathematical interpretations, and finally, explore the broader implications and potential of linear generative models in the field of machine learning.
- 
 \section{Methodology}
 \subsection{Autoencoder As a Pair of Parameterized Functions}
 \begin{definition}[Autoencoder \citep{ae}]
