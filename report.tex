@@ -44,7 +44,7 @@ In the foraging task, the goal for agents are to reach the objective and to accu
 Suppose there are $N$ robots with compliance group $R_c = \{1,2,\dots,n_c\}$ and defiance group $R_d = \{n_{c+1},\dots,N\}$. Then, the dynamics is denoted as followed
 \begin{align*}
   \frac{\partial}{\partial t} P_{\ell}(x,t) &= D_\ell \nabla^2 P_\ell (x,t) - \gamma_\ell P_\ell(x,t) + S_{\ell}(x,t)\\
-  S_\ell(x,t) &= \sum_{k\in R_c} s_\ell\delta(x-X_t^{(k)}) + \sum_{m\in R_d}(x-Y_t^{(m)})\\
+  S_\ell(x,t) &= \sum_{k\in R_c} s_\ell\delta(x-X_t^{(k)}) + \sum_{m\in R_d}s_\ell(x-Y_t^{(m)})\\
   dX_t^{(k)} &= Z_t^{(k)}\left[\mu(P_\ell(X_t^{(k)},t),t)dt + \sigma dW_t\right] + (1-Z_t^{(k)})\left[\sigma dW_t\right]\\
   Z_t^{(k)} &\sim \operatorname{Bernoulli}(p^{(k)}_t)\\
   Y_t^{(k)} &\sim \operatorname{Unknown, adversarial}
