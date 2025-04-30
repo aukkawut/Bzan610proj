@@ -38,7 +38,6 @@ In the foraging task, the goal for agents are to reach the objective and to accu
 \section{Introduction}\label{intro}
 
 \section{Literature Review}
-\section{Methodology}
 \section{Results}
 \subsection{Model}
 Suppose there are $N$ robots with compliance group $R_c = \{1,2,\dots,n_c\}$ and defiance group $R_d = \{n_{c+1},\dots,N\}$. Then, the dynamics is denoted as followed
@@ -49,6 +48,17 @@ Suppose there are $N$ robots with compliance group $R_c = \{1,2,\dots,n_c\}$ and
   Z_t^{(k)} &\sim \operatorname{Bernoulli}(p^{(k)}_t)\\
   Y_t^{(k)} &\sim \operatorname{Unknown, adversarial}
 \end{align*}
+\subsection{Existence of Absorbing path}
+Intuitively, one can think of one example of such a path as two scenario:
+\begin{enumerate}
+    \item Diverging path: in this scenario, the adversaries reinforcing the path that leads to nowhere (i.e., diverging) resulting in delay, if not, trap (if that diverging path leads to absorbing path) those agents in the loop
+    \item Potential Wall: in this scenario, the adversaries reinforce the wall so much so that it create potential wall or barrier that ant cannot pass despite it is connecting to the target path.
+\end{enumerate}
+Mathematically, we can formulate the following scenario as:
+\subsection{Dynamic Discovery}
+\section{Discussion}
+\section{Future Works}
+\section{Reference}
 \end{document}
 
 
