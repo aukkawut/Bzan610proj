@@ -55,6 +55,9 @@ Intuitively, one can think of one example of such a path as two scenario:
     \item Potential Wall: in this scenario, the adversaries reinforce the wall so much so that it create potential wall or barrier that ant cannot pass despite it is connecting to the target path.
 \end{enumerate}
 Mathematically, we can formulate the following scenario as:
+\[
+  \exists \Gamma : \mathbb{R} \rightarrow \mathbb{R}^2 \text{ path}, \exists \tau \in \mathbb{R}^{+},\forall t > \tau \cup \{0\}, X_\tau^{(k)}\in \Gamma \implies \mathbb{P}(X_\tau^{(k)}\not\in \Gamma) = 0
+\]
 \subsection{Dynamic Discovery}
 \section{Discussion}
 \section{Future Works}
