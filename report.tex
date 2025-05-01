@@ -41,13 +41,15 @@ In the foraging task, the goal for agents are to reach the objective and to accu
 \section{Results}
 \subsection{Model}
 Suppose there are $N$ robots with compliance group $R_c = \{1,2,\dots,n_c\}$ and defiance group $R_d = \{n_{c+1},\dots,N\}$. Then, the dynamics is denoted as followed
-\begin{align*}
+\begin{align}
+\begin{split}
   \frac{\partial}{\partial t} P_{\ell}(x,t) &= D_\ell \nabla^2 P_\ell (x,t) - \gamma_\ell P_\ell(x,t) + S_{\ell}(x,t)\\
   S_\ell(x,t) &= \sum_{k\in R_c} s_\ell\delta(x-X_t^{(k)}) + \sum_{m\in R_d}s_\ell\delta(x-Y_t^{(m)})\\
   dX_t^{(k)} &= Z_t^{(k)}\left[\mu(P_\ell(X_t^{(k)},t),t)dt + \sigma dW_t\right] + (1-Z_t^{(k)})\left[\sigma dW_t\right]\\
   Z_t^{(k)} &\sim \operatorname{Bernoulli}(p^{(k)}_t)\\
   Y_t^{(k)} &\sim \operatorname{Unknown, adversarial}
-\end{align*}
+  \end{split}
+\end{align}
 \subsection{Existence of Absorbing path}
 Intuitively, one can think of one example of such a path as two scenario:
 \begin{enumerate}
@@ -55,9 +57,22 @@ Intuitively, one can think of one example of such a path as two scenario:
     \item Potential Wall: in this scenario, the adversaries reinforce the wall so much so that it create potential wall or barrier that ant cannot pass despite it is connecting to the target path.
 \end{enumerate}
 Mathematically, we can formulate the following scenario as:
-\[
+\begin{equation}
   \exists \Gamma : \mathbb{R} \rightarrow \mathbb{R}^2 \text{ path}, \exists \tau \in \mathbb{R}^{+},\forall t > \tau \cup \{0\}, X_\tau^{(k)}\in \Gamma \implies \mathbb{P}(X_\tau^{(k)}\not\in \Gamma) = 0
-\]
+\end{equation}
+That is, there exits a path such that once the agent cross that path, almost surely they cannot leave that path. In this sense, if this were to be discrete space, it is equivalent to reaching the absorbing path. However, since the pheromone is decaying by time as per our dynamics, and also the agent has tendency to ignore pheromone and perform random walk, such the path is now non-trivial.
+
+Now, given the dynamics, we can determine the existence of the path by solving for the evolution of the spatial distribution of the pheromone field. In order to accomplish that, consider the simple case of two agents, one is compliance and one is defiance.
+
+The dynamics are now simplified into
+\begin{align}
+\begin{split}
+  \frac{\partial}{\partial t} P_{\ell}(x,t) &= D_\ell \nabla^2 P_\ell (x,t) - \gamma_\ell P_\ell(x,t) + s_\ell(\delta(x-X_t)+\delta(x-Y_t)\\
+  dX_t&= Z_t\left[\mu(P_\ell(X_t,t),t)dt + \sigma dW_t\right] + (1-Z_t)\left[\sigma dW_t\right]\\
+  Z_t &\sim \operatorname{Bernoulli}(p_t)\\
+  Y_t^{(k)} &\sim \operatorname{Unknown, adversarial}
+  \end{split}
+\end{align}
 \subsection{Dynamic Discovery}
 \section{Discussion}
 \section{Future Works}
