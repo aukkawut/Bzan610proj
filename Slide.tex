@@ -22,7 +22,7 @@
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 
-\title{Information Structure and Influence Maximization Case Studies}
+\title{Adversarial Pheromone-based Swarm Robots Dynamics as System of Stochastic Partial Differential Equations}
 %\subtitle{Case study: Information Operation}
 % \date{\today}
 \date{}
@@ -39,21 +39,6 @@
 \begin{frame}{Table of contents}
   \setbeamertemplate{section in toc}[sections numbered]
   \tableofcontents%[hideallsubsections]
-\end{frame}
-\section{Social Network Influence Maximization}
-\begin{frame}{What's Wrong With Previous Works?}
-    \begin{itemize}
-        \item Information cascade is modeled as change in behavior. Not how the information is propagated.
-        \item Are one step: once you adopted the behavior, you are done.
-    \end{itemize}
-\end{frame}
-\begin{frame}{Information Cascade in Graph}
-\begin{figure}
-    \centering
-    \includegraphics[width=1\linewidth]{graph1.pdf}
-    \caption{\textbf{Information Cascade on Directional Social Network}. Individual node has their own belief level $\alpha \in [-1,1]$.}
-    \label{fig:1}
-\end{figure}
 \end{frame}
 \section{Spatial-Temporal Influence Maximization in Swarm Robotics}
 \begin{frame}{Pheromone-Based Robot Foraging}
@@ -72,6 +57,49 @@
     \label{fig:2}
 \end{figure}
 \end{frame}
+\section{Related Work}
+\begin{frame}{Modeling Pheromone Coupled System}
+    \begin{itemize}
+        \item Bruna et al. (2025) uses Fokker-Planck and eliptical equation
+        \begin{align*}
+            \frac{\partial}{\partial t}f &= \nabla_x \cdot\left(D_T\nabla_x{f}-\eta\begin{bmatrix}\cos\theta\\ \sin\theta\end{bmatrix}f\right)+\frac{\partial}{\partial\theta}\left(\frac{\partial}{\partial\theta}f-\gamma B[c]f\right)\\
+            \nabla^2c-\alpha c + \rho&=0\\
+            B_\lambda[c] &= \begin{bmatrix}-\sin\theta\\ \cos\theta\end{bmatrix}\cdot\nabla_xc\left(x+\lambda \begin{bmatrix}\cos\theta\\ \sin\theta\end{bmatrix}\right)\\
+            \underbrace{f(t=0,x,\theta)}_{\text{time,space,orientation}}&=f^{0}(x,\theta)
+        \end{align*}
+        \begin{itemize}
+            \item Strong point for this model is well-posedness and interaction which can be used to model the robot.
+            \item Weak point is that it doesn't follow gradient flow, hence is complicated to analyze.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+\begin{frame}{Adversarial Problems}
+\begin{itemize}
+    \item Aswale et al. (2022) proposes the framework and the empirical result of the adversarial pheromone robot problem. 
+    \begin{itemize}
+        \item The impact of the faulty/malicious robot is so great (in simulation), we only need tiny amount of the adversarial agents to disrupt the operation.
+        \item They propose cautionary pheromone to ``erase" the malicious pheromone after some time.
+    \end{itemize}
+        \item Strobel et al. (2023) proposed token economy system to mitigate the effect of adversaries. 
+    \begin{itemize}
+        \item Requires token to act, resulting in adversaries depleting their tokens.
+    \end{itemize}
+\end{itemize}
+    
+\end{frame}
+
+  \begin{frame}{Research Questions}
+  \begin{itemize}
+      \item What is optimal strategy or optimal dynamics $Y_t$ such that it minimize $F(t)$?
+      \item Can we do anything against it without additional ``things"?
+      \begin{itemize}
+          \item Internal belief $p_i(t)$ $\implies$ Exploration-exploitation problem
+          \item Treating adversarial pheromone as noise $\implies$ filtering problem?
+          \item Clever information propagation?
+      \end{itemize}
+  \end{itemize}
+  \end{frame}
+\section{Theoretical Model}
 \begin{frame}{Pheromone and Robot Dynamics}
 \begin{itemize}
     \item Suppose $i=1,\dots,N$ are robots that locate at $x_i(t)$. At position $x(t)$, there are 2 pheromones concentration $P_\text{food},P_{\text{home}}$
@@ -85,108 +113,7 @@
     \item Robot has prior belief in trustworthiness of the observation.
 \end{itemize}
 \end{frame}
-\section{Methodology}
-\begin{frame}{Method}
-    \begin{itemize}
-        \item Monte Carlo simulation of different settings as initial dynamics.
-        \begin{itemize}
-            \item In discrete case, we can look at the Erd\H{o}s-R\'enyi social network with different families of distributions of propagation: uniform, heavy-tailed, Gaussian, etc. Or using the synchronization/quorum sensing as the way to model the dynamics.
-            \item Continuous case, we have some prior data and simulator from previous work.
-        \end{itemize}
-        \item Theoretical exploration
-        \begin{itemize}
-            \item Both are evolution of distribution which is the solution of SDE (and also PDE). So, Kolmogorov forward equation or Fokker-Planck equation might needed to be considered.
-        \end{itemize}
-        \item Information Structure
-        \begin{itemize}
-            \item How would knowing more information (say if robot can communicate, or we know which side that person is on) changes the strategy?
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-\section{Theoretical Results}
-\begin{frame}{Dynamics as Gradient Flow}
-    \begin{itemize}
-        \item One can say that the system
-        \begin{align}
-    \dfrac{\partial}{\partial t} P_\ell(x,t) &= D_\ell \nabla^2P_\ell(x,t) -\lambda_\ell P_\ell(x,t) +S_\ell(x,t)\\
-    \dd x_t &= \mu(X_t,t)\dd t + \sigma(X_t,t)\dd W_t\\
-    X_t &\sim F(t,\theta) \text{ unknown}
-    \end{align}
-    can be written as
-    \begin{equation}
-        \partial_t\eta = \nabla^2\eta + \nabla \cdot \left(\eta (\nabla V+ \nabla W[\mu])\right)
-    \end{equation}
-    for some measure $\mu$ and potential function $V$ (as gradient flow).
-    \end{itemize}
-\end{frame}
-\begin{frame}{Information Structure}
-    \metroset{block=fill}
-    \begin{block}{Theorem}
-    Pheromone dynamics follows the Blackwell's information structure. 
-    \end{block}
-    \begin{proof}
-        \begin{itemize}
-            \item Intuitively, one can see that the dynamic system we discussed is indeed diffusion process with additional term governing the input and output of the system. In a way, we have
-            \[
-            \dfrac{\partial}{\partial t} P_\ell(x,t) = D_\ell \nabla^2P_\ell(x,t) + f(P_\ell(x,t),x,t)
-             \]
-            Then, we need to show that there exists the relationship
-            \[
-            \forall \mu \in \Omega_{\Xi}, \forall\hat{\xi},\tilde{\xi}\in \Xi, \tilde{\xi} = \hat{\xi}D \implies \mu(\hat{\xi}) \leq \mu(\tilde{\xi})
-            \]
-            for diffusion process $D$.
-        \end{itemize}
-    \end{proof}
-\end{frame}
-\begin{frame}{Information Structure (Continue)}
-    \metroset{block=fill}
-    \begin{proof}
-        \begin{itemize}
-        \item Note that our pheromone dynamics is (stochastic) parabolic equation satisfying the condition $B^2 + AC = 0$.
-        \item It is also in the form of
-        \begin{equation}
-        \left(\dfrac{\partial}{\partial t}-\mathcal{L}\right) U + qU = F, \quad \left.U\right|_{t=0} = G    
-        \end{equation}
-        \item Here, we can think of our Laplacian as elliptic operator and our forcing term as random deposition with unknown potential $U$.
-        \item There are two dynamics:
-        \[
-        P_o = P_T + P_A
-        \]
-        We know $P_o$ and want to recover $P_T$ but we don't know $P_A$
-    \end{itemize}
-    \end{proof}
-    \end{frame}
-    \begin{frame}{Another direction}
-        \begin{itemize}
-            \item NTS that 1 and 2 are equivalent to
-            \begin{align*}
-            \dd u(t) + [\gamma Au(t)+B(u(t),u(t)) &+F(u(t))]\dd t = G(u(t-))\dd W \\
-            &\phantom{=}+ \int_{E_0}K(u(t-),\xi)
-            \dd \hat{\pi}(t,\xi)\\
-            &\phantom{=}+ \int_{E\setminus E_0}\mathcal{K}(u(t-),\xi)\dd\pi(t,\xi)\\
-            &u(0) = u_0
-            \end{align*}
-            \item $u\in H$ separable (real) Hilbert, $A$ linear operator on $H$ (not necessary bounded), $B$ bilinear form, and $F$ monotone operator over reflexive Banach $X$ densely and continuously embedded in $H$. (Nguyen et al., 2021)
-        \end{itemize}
-    \end{frame}
-    \begin{frame}{Another Direction (continue)}
-    \begin{itemize}
-    \item Notice that our formulation follows the SPDE with Levy noise. More specifically, it is parabolic SPDE with Levy noise.
-    \begin{itemize}
-        \item To see this, notice that
-        \[
-        S_\ell(x,t) = \sum_{k=1}^n s\delta(x-X_i(t)), \dd X_i = \mu \dd t + \sigma \dd W_t 
-        \]
-        Essentially we are asking if our Ornstein-Uhlenbeck process hit the specific $x$ or not. At the position on some path, if there is ant there, the pheromone level jump (from deposition) rather than decay or diffusion. Hence, acts like Levy noise.
-        \item Moreover,
-        \[
-        \dfrac{\partial}{\partial t}P(x,t) = D\nabla^2P(x,t) - \gamma P(x,t) + S(x,t)
-        \]
-        is linear, is regularized (in a sense). That is, say if we have $\partial_tP \in L^2$ then, $D\nabla^2P \in W^1$ Sobolev (think of it as linear space of function with $L^p$ norm), more smooth or something. Hence, parabolic (in PDE sense)
-    \end{itemize}
-    \end{itemize}
-    \end{frame}
-	\begin{frame}{Adversarials}
+	\begin{frame}{Adversaries}
 		\begin{itemize}
 			\item Suppose the dynamics $X_i(t)$ is now defined as
 				\[
@@ -231,8 +158,33 @@
   \end{frame}
   \begin{frame}{Cumulative Food}
     \begin{itemize}
-      \item Now, 
+      \item Now, the objective function for the robot is to maximize the cumulative food
+      \begin{align*}
+F(t) &= \sum_{i=1}^n \int_0^t \int_{\mathbb{R}^d} 1_{\{\text{carrying}_i(\tau)\}} \cdot \delta(X_i(\tau) - x_0) \cdot r(X_i(\tau^-), \tau) \, dx \, d\tau \\
+r(x,t) &= \min\left(r_{\max}, \phi(x,t)\right) \\
+\frac{\partial \phi(x,t)}{\partial t} &= - \sum_{i=1}^n \delta(x - X_i(t)) \cdot 1_{\{X_i(t) \in \mathcal{F}\}} \cdot r(x,t)
+\end{align*}
+\item Decision Variable: 
+\begin{itemize}
+    \item Adversaries: dynamics $Y_t$
+    \item Non-adversaries: $p_i(t)$ or $X_t$
+\end{itemize}
     \end{itemize}
   \end{frame}
+  \begin{frame}{How to solve this?}
+      \begin{itemize}
+          \item Suppose we are considering this at discrete time and discrete space (grid world or lattice), then there are a lot of ways to work with this
+          \begin{itemize}
+              \item Similar manner to immersed boundary method (Peskin, 1972), we can propagate the ``fluid" on the ``field" and interact with ``solid".
+              \item Or can model this as percolation problem (Grimmett, 1999).
+              \item One of the adversarial strategy can be modeled as ``absorbing state" (Morimoto et al., 2025)
+          \end{itemize}
+          \item Incorporate the robot dynamics control into the model in orientation manner rather than pure spatial-temporal system (Malíčková et al. 2015; Bruna et al., 2025)
+          \item Using mean-field theory to understand effect of local interaction (particles) to the global parameter (temperature) (Ornia et al. 2022; Morimoto et al., 2025)
+      \end{itemize}
+  \end{frame}
+  
+
+
 \end{document}
             
